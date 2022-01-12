@@ -1,0 +1,27 @@
+https://github.com/darold/pgbadger
+
+
+yum install -y perl perl-devel
+wget https://github.com/darold/pgbadger/archive/v11.6.tar.gz
+tar xzvf v11.6.tar.gz
+cd pgbadger-11.6
+perl Makefile.PL
+make && sudo make install
+
+
+log_line_prefix = '%t [%p]: [%l-1] '
+log_statement = 'none' 
+log_min_duration_statement = 0  --ne kadar sürede uzun süren sorguları görmek istersek 
+
+log_checkpoints = on 
+log_connections = on 
+log_disconnections = on 
+log_lock_waits = on 
+log_temp_files = 0 
+log_autovacuum_min_duration = 0
+
+ /usr/pgsql-12/bin/pg_ctl restart 
+
+ cd  /var/lib/pgsql/12/data/log
+
+ pgbadger postgresql-Tue.log  -o result.html
